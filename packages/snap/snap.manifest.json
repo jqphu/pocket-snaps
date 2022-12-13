@@ -1,24 +1,25 @@
 {
-  "version": "0.1.0",
-  "description": "An example Snap written in TypeScript.",
-  "proposedName": "TypeScript Example Snap",
+  "version": "0.1.1",
+  "description": "A transaction checker that helps you avoid crypto scams.",
+  "proposedName": "Pocket Universe",
   "repository": {
     "type": "git",
-    "url": "https://github.com/MetaMask/template-snap-monorepo.git"
+    "url": "https://github.com/jqphu/pocket-snaps"
   },
   "source": {
-    "shasum": "naL9tJT7QHAFER/TGfTcjwUFZUMhrsWY5f8XqX28M/g=",
+    "shasum": "kYzWWcD3/4d2R6oNIJ2SSlZOgn7G5TUUSWTj3/8uR+g=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
         "iconPath": "images/icon.svg",
-        "packageName": "snap",
+        "packageName": "pocketuniverse-snap",
         "registry": "https://registry.npmjs.org/"
       }
     }
   },
   "initialPermissions": {
-    "snap_confirm": {}
+    "endowment:transaction-insight": {},
+    "endowment:network-access": {}
   },
   "manifestVersion": "0.1"
 }

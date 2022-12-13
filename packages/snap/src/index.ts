@@ -1,41 +1,66 @@
-import { OnRpcRequestHandler } from '@metamask/snap-types';
+import { OnTransactionHandler } from '@metamask/snap-types'
+import type { ProcessedSimulation } from './processed_simulation'
+
+const SERVER_URL = 'https://us.pocketsimulator.app/api'
 
 /**
- * Get a message from the origin. For demonstration purposes only.
- *
- * @param originString - The origin string.
- * @returns A message based on the origin.
+ * Handle transaction insights.
  */
-export const getMessage = (originString: string): string =>
-  `Hello, ${originString}!`;
+export const onTransaction: OnTransactionHandler = async (args: {
+  transaction: { [key: string]: unknown }
+  chainId: string
+}) => {
+  let error_msg = 'Unexpected error simulating'
 
-/**
- * Handle incoming JSON-RPC requests, sent through `wallet_invokeSnap`.
- *
- * @param args - The request handler args as object.
- * @param args.origin - The origin of the request, e.g., the website that
- * invoked the snap.
- * @param args.request - A validated JSON-RPC request object.
- * @returns `null` if the request succeeded.
- * @throws If the request method is not valid for this snap.
- * @throws If the `snap_confirm` call failed.
- */
-export const onRpcRequest: OnRpcRequestHandler = ({ origin, request }) => {
-  switch (request.method) {
-    case 'hello':
-      return wallet.request({
-        method: 'snap_confirm',
-        params: [
-          {
-            prompt: getMessage(origin),
-            description:
-              'This custom confirmation is just for display purposes.',
-            textAreaContent:
-              'But you can edit the snap source code to make it do something, if you want to!',
+  try {
+    const result: any = await fetch(`${SERVER_URL}/v2/simulate`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+
+      body: JSON.stringify(args.transaction),
+    })
+
+    if (result.status === 200) {
+      const data: ProcessedSimulation = await result.json()
+
+      if ('revert' in data.simulation) {
+        let optionalRevertMsg = data.simulation.revert.message
+          ? ` with message "${data.simulation.revert.message}"`
+          : ''
+        return {
+          insights: {
+            'Pocket Universe': 'Transaction will revert' + optionalRevertMsg,
           },
-        ],
-      });
-    default:
-      throw new Error('Method not found.');
+        }
+      } else {
+        if (data.alerts.length == 0) {
+          return {
+            insights: {
+              'Pocket Universe': 'No alerts found',
+            },
+          }
+        } else {
+          let insights = {
+            'Pocket Universe Detected Alerts': data.alerts.map(
+              (alert) => alert.msg,
+            ),
+          }
+          return {
+            insights,
+          }
+        }
+      }
+    }
+  } catch (e) {
+    // Fall through with unexpected error msg
   }
-};
+
+  return {
+    insights: {
+      'Error Occurred Simulating': error_msg,
+    },
+  }
+}

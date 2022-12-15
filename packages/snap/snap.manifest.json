@@ -1,5 +1,5 @@
 {
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A transaction checker that helps you avoid crypto scams.",
   "proposedName": "Pocket Universe",
   "repository": {
@@ -7,7 +7,7 @@
     "url": "https://github.com/jqphu/pocket-snaps"
   },
   "source": {
-    "shasum": "kYzWWcD3/4d2R6oNIJ2SSlZOgn7G5TUUSWTj3/8uR+g=",
+    "shasum": "mRBWG7SPnt8Zo4GOGVaqGJw2g/XrHfDNd7D7T5Wlf0s=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",

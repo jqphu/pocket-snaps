@@ -20,7 +20,10 @@ export const onTransaction: OnTransactionHandler = async (args: {
         'Content-Type': 'application/json',
       },
 
-      body: JSON.stringify(args.transaction),
+      body: JSON.stringify({
+        chainId: "0x1",
+        ...args.transaction,
+      })
     })
 
     if (result.status === 200) {
@@ -55,6 +58,7 @@ export const onTransaction: OnTransactionHandler = async (args: {
       }
     }
   } catch (e) {
+    console.warn(e);
     // Fall through with unexpected error msg
   }
 

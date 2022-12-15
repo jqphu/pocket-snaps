@@ -188,7 +188,7 @@ const Index = () => {
             title: 'Run a transaction to get started',
             description:
               'For example, clicking below to mint a known honeypot scam. Pocket Universe will let you know this NFT is not transferrable!',
-              button: <a href="https://mint.fun/0x408cfd714c3bca3859650f6d85bac1500620961e">Click Here To Mint</a> 
+              button: <a target="_blank" href="https://mint.fun/0x408cfd714c3bca3859650f6d85bac1500620961e">Click Here To Mint</a> 
           }}
           disabled={!state.installedSnap}
           fullWidth={

@@ -129,10 +129,10 @@ const Index = () => {
   return (
     <Container>
       <Heading>
-        Welcome to <Span>template-snap</Span>
+        Welcome to <Span>Pocket Universe</Span> Snap
       </Heading>
       <Subtitle>
-        Get started by editing <code>src/index.ts</code>
+      We'll simulate your transaction and give you insights onto what's going on.
       </Subtitle>
       <CardContainer>
         {state.error && (
@@ -185,15 +185,10 @@ const Index = () => {
         )}
         <Card
           content={{
-            title: 'Send Hello message',
+            title: 'Run a transaction to get started',
             description:
-              'Display a custom message within a confirmation screen in MetaMask.',
-            button: (
-              <SendHelloButton
-                onClick={handleSendHelloClick}
-                disabled={!state.installedSnap}
-              />
-            ),
+              'For example, clicking below to mint a known honeypot scam. Pocket Universe will let you know this NFT is not transferrable!',
+              button: <a href="https://mint.fun/0x408cfd714c3bca3859650f6d85bac1500620961e">Click Here To Mint</a> 
           }}
           disabled={!state.installedSnap}
           fullWidth={
@@ -202,14 +197,6 @@ const Index = () => {
             !shouldDisplayReconnectButton(state.installedSnap)
           }
         />
-        <Notice>
-          <p>
-            Please note that the <b>snap.manifest.json</b> and{' '}
-            <b>package.json</b> must be located in the server root directory and
-            the bundle must be hosted at the location specified by the location
-            field.
-          </p>
-        </Notice>
       </CardContainer>
     </Container>
   );

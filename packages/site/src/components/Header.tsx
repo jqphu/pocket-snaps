@@ -62,8 +62,7 @@ export const Header = ({
   return (
     <HeaderWrapper>
       <LogoWrapper>
-        <SnapLogo color={theme.colors.icon.default} size={36} />
-        <Title>template-snap</Title>
+        <Title>Pocket Universe</Title>
       </LogoWrapper>
       <RightContainer>
         <Toggle
